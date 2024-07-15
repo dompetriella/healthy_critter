@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:healthy_critter/routing/router.dart';
 import 'package:healthy_critter/theme.dart';
 
 class App extends ConsumerWidget {
@@ -7,8 +8,9 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'App',
+      routerConfig: ref.watch(routerProvider),
       themeMode: ThemeMode.light,
       theme: lightTheme,
     );
