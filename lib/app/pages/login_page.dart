@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:healthy_critter/app/widgets/action_button.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:healthy_critter/app/global_widgets/action_button.dart';
+import 'package:healthy_critter/main.dart';
+import 'package:healthy_critter/routing/routes.dart';
+import 'package:healthy_critter/state/auth_state.dart';
 import 'package:healthy_critter/theme.dart';
-import 'package:hexcolor/hexcolor.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends ConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var authStateActions = ref.watch(authStateProvider.notifier);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Stack(
@@ -52,18 +57,72 @@ class LoginPage extends StatelessWidget {
               ),
               Column(
                 children: [
+                  // ActionButton(
+                  //   text: 'Sign Up',
+                  //   buttonWidth: 225,
+                  //   onPressed: () {},
+                  // ),
+                  // SizedBox(
+                  //   height: 24,
+                  // ),
+                  // ActionButton(
+                  //   text: 'Log In',
+                  //   buttonType: ButtonType.minorAction,
+                  //   buttonWidth: 225,
+                  //   onPressed: () {},
+                  // ),
+                  // SizedBox(
+                  //   height: 24,
+                  // ),
                   ActionButton(
-                    text: 'Sign Up',
+                    text: 'Login Test',
                     buttonWidth: 225,
+                    onPressed: () async {
+                      try {
+                        final AuthResponse response = await supabase.auth
+                            .signInWithPassword(
+                                email: 'test@gmail.com', password: 'password1');
+
+                        if (response.session != null && response.user != null) {
+                          authStateActions.logIn(
+                              response.session!, response.user!);
+                          AppRoute().go(context);
+                        } else {
+                          print('Auth returned, but was empty');
+                        }
+                      } catch (e) {
+                        print('Error:');
+                        print(e.toString());
+                      }
+                    },
                   ),
                   SizedBox(
-                    height: 16,
+                    height: 24,
                   ),
                   ActionButton(
-                    text: 'Log In',
-                    buttonType: ButtonType.minorAction,
+                    text: 'Login Dom',
                     buttonWidth: 225,
-                  ),
+                    buttonType: ButtonType.minorAction,
+                    onPressed: () async {
+                      try {
+                        final AuthResponse response = await supabase.auth
+                            .signInWithPassword(
+                                email: 'dompetriella@gmail.com',
+                                password: 'password');
+
+                        if (response.session != null && response.user != null) {
+                          authStateActions.logIn(
+                              response.session!, response.user!);
+                          AppRoute().go(context);
+                        } else {
+                          print('Auth returned, but was empty');
+                        }
+                      } catch (e) {
+                        print('Error:');
+                        print(e.toString());
+                      }
+                    },
+                  )
                 ],
               ),
             ],

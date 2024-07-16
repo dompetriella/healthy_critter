@@ -6,11 +6,15 @@ class ActionButton extends StatelessWidget {
   final String text;
   final double buttonWidth;
   final ButtonType buttonType;
+  final double verticalPadding;
+  final VoidCallback onPressed;
   const ActionButton(
       {super.key,
       required this.text,
       this.buttonWidth = 200,
-      this.buttonType = ButtonType.majorAction});
+      this.verticalPadding = 20,
+      this.buttonType = ButtonType.majorAction,
+      required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,7 @@ class ActionButton extends StatelessWidget {
       children: [
         Positioned.fill(
             child: Transform.translate(
-          offset: Offset(3, -3),
+          offset: Offset(6, -6),
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1),
@@ -33,7 +37,7 @@ class ActionButton extends StatelessWidget {
         )),
         Positioned.fill(
             child: Transform.translate(
-          offset: Offset(-3, 3),
+          offset: Offset(-6, 6),
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(1),
@@ -51,7 +55,7 @@ class ActionButton extends StatelessWidget {
           child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                   foregroundColor: Theme.of(context).colorScheme.onTertiary,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 48),
+                  padding: EdgeInsets.symmetric(vertical: verticalPadding),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(1)),
                   backgroundColor: switch (buttonType) {
@@ -61,7 +65,7 @@ class ActionButton extends StatelessWidget {
                       Theme.of(context).colorScheme.primary,
                     _ => Theme.of(context).colorScheme.primary,
                   }),
-              onPressed: () {},
+              onPressed: onPressed,
               child: Text(
                 text,
                 style: Theme.of(context)
