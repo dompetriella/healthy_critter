@@ -8,6 +8,10 @@ const Color mainRedColor = Color(0xFFBC4749);
 
 ThemeData lightTheme = ThemeData(
   useMaterial3: true,
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+          shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(2))))),
   textTheme: const TextTheme(
     displayLarge: TextStyle(fontSize: 96, fontWeight: FontWeight.w300),
     displayMedium: TextStyle(fontSize: 60, fontWeight: FontWeight.w400),
@@ -48,6 +52,10 @@ ThemeData lightTheme = ThemeData(
 ThemeData darkTheme = ThemeData(
   useMaterial3: true,
   textTheme: const TextTheme(),
+  elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+          shape: WidgetStatePropertyAll(
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(2))))),
   colorScheme: ColorScheme.dark(
       primary: HexColor('#2978A0'),
       primaryFixed: HexColor('#2DA5B6'),
