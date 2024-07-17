@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:healthy_critter/app/pages/subpages/critter_page/critter_page.dart';
-import 'package:healthy_critter/app/pages/subpages/data_page.dart';
-import 'package:healthy_critter/app/pages/subpages/metrics_page.dart';
-import 'package:healthy_critter/app/pages/subpages/settings_page.dart';
+import 'package:healthy_critter/app/pages/subpages/data_page/data_page.dart';
+import 'package:healthy_critter/app/pages/subpages/metrics_page/metrics_page.dart';
+import 'package:healthy_critter/app/pages/subpages/settings_page/settings_page.dart';
 import 'package:healthy_critter/state/auth_state.dart';
 
 final PageController pageController = PageController();

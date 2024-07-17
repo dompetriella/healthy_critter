@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:healthy_critter/app/global_widgets/action_button.dart';
 import 'package:healthy_critter/app/global_widgets/color_container.dart';
 import 'package:healthy_critter/app/global_widgets/color_seperator.dart';
 import 'package:healthy_critter/app/global_widgets/critter_profile_picture.dart';
@@ -15,43 +16,88 @@ class CritterPage extends StatelessWidget {
         SizedBox(
           height: 16,
         ),
-        ExpandedCritterTile(),
-        Padding(
-          padding: const EdgeInsets.only(top: 32.0),
+        Expanded(
           child: Container(
-            decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surface,
-                borderRadius: BorderRadius.circular(3),
-                border: Border.all(
-                    color: Theme.of(context).colorScheme.primary, width: 8)),
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(padding: EdgeInsets.all(0)),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                child: Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Container(
-                          height: 60,
-                          width: 75,
-                          color: Colors.red,
-                        ),
-                        Text(
-                          'A Gecko Name Here',
-                          style: Theme.of(context).textTheme.bodyMedium,
-                        )
-                      ],
-                    ),
-                  ],
+            child: ListView(
+              children: [
+                ExpandedCritterTile(),
+                CritterTile(),
+                SizedBox(
+                  height: 24,
                 ),
-              ),
+                ActionButton(
+                    text: 'Add New Critter',
+                    buttonWidth: 280,
+                    verticalPadding: 12,
+                    trailingWidget: Icon(Icons.add),
+                    onPressed: () {})
+              ],
             ),
           ),
-        )
+        ),
       ],
+    );
+  }
+}
+
+class CritterTile extends StatelessWidget {
+  const CritterTile({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(top: 18.0, left: 4, right: 4),
+      child: Container(
+        decoration: BoxDecoration(
+            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(6),
+            boxShadow: [
+              BoxShadow(
+                  offset: Offset(0, 2),
+                  blurRadius: 1,
+                  spreadRadius: 1,
+                  color: Colors.black.withOpacity(.25))
+            ],
+            border: Border.all(
+                color: Theme.of(context).colorScheme.primary, width: 8)),
+        child: ElevatedButton(
+          onPressed: () {},
+          style: ElevatedButton.styleFrom(padding: EdgeInsets.all(0)),
+          child: Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 60,
+                    width: 95,
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'A Gecko Name Here',
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ),
+                  )
+                ],
+              ),
+              Positioned(
+                  left: 14,
+                  bottom: 12,
+                  child: Transform.scale(
+                      scale: 1.2,
+                      child: CritterProfilePicture(
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primaryFixed,
+                      )))
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -65,7 +111,9 @@ class ExpandedCritterTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColorContainer(
         content: ElevatedButton(
-      style: ElevatedButton.styleFrom(padding: EdgeInsets.all(16)),
+      style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(16),
+          foregroundColor: Theme.of(context).colorScheme.tertiary),
       onPressed: () {},
       child: Column(
         children: [
@@ -74,6 +122,7 @@ class ExpandedCritterTile extends StatelessWidget {
             children: [
               CritterProfilePicture(
                 scale: 1.8,
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
               ),
               Column(
                 children: [

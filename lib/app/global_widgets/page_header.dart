@@ -22,7 +22,9 @@ class PageHeader extends StatelessWidget {
                     fontWeight: FontWeight.w900,
                     color: Theme.of(context).colorScheme.primaryFixedDim),
               ),
-              CritterProfilePicture()
+              CritterProfilePicture(
+                backgroundColor: Theme.of(context).colorScheme.tertiary,
+              )
             ],
           ),
         ),
